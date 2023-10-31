@@ -15,7 +15,7 @@ let { emailModel } = require("./emailModel")
 
 
 
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 
 const db = mongoose.connection
 
@@ -31,9 +31,6 @@ db.once('open', () => console.log("Connected To Database"))
 
 app.use(express.json())
 app.use('/pass', passportRouter)
-
-
-
 
 
 

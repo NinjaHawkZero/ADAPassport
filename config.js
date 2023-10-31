@@ -19,7 +19,7 @@ function getDatabaseUri() {
     return (process.env.NODE_ENV === "test")
 
     ? "ADAPassport_Test"
-    : process.env.DATABASE_URL || "ADAPassport";
+    : process.env.MONGODB_URI || "ADAPassport";
     
 }
 

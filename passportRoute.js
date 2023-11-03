@@ -88,7 +88,7 @@ try {
     if(foundLearner.length > 0) {
         let mentor = foundLearner[0];
 
-        console.log(`found learner ${mentor}`)
+        
         res.status(201).json({mentor: mentor});
     }
      else {
@@ -157,13 +157,13 @@ passportRouter.post("/createPassport", async (req, res) => {
         //Try find user in DB
         let foundLearner = await passportModel.find({userID: userID});
       
-
+        
 
         //If user found return user
         if(foundLearner.length > 0) {
             let learner = foundLearner[0];
 
-            console.log(`found learner ${learner}`)
+            
             res.status(201).json({learner: learner});
         }
 
@@ -265,7 +265,7 @@ passportRouter.post("/createPassport", async (req, res) => {
            badgesArr.push(choices[i]);
         }
         
-        let learner = await passportModel.create({email:learnerEmail, name: learnerName, badges: badgesArr,  Professional_Toolkit:{Updated_Resume:false, Gave_Resume_Feedback:false, Write_Or_Update_Cover_Letter:false, Create_Business_Card:false, Took_Professional_Headshot: false, Create_Or_Update_LinkedIn:false},
+        let learner = await passportModel.create({email:learnerEmail, name: learnerName, userID: userID, badges: badgesArr,  Professional_Toolkit:{Updated_Resume:false, Gave_Resume_Feedback:false, Write_Or_Update_Cover_Letter:false, Create_Business_Card:false, Took_Professional_Headshot: false, Create_Or_Update_LinkedIn:false},
             Portfolio:{Built_Or_Updated_Portfolio: false, Added_Challenges_To_Portfolio: false },
             Networking:{Create_Or_Perfect_Personal_Pitch:false, Coffee_With_A_Peer: false, Made_Five_New_Connections_In_My_Industry:false, Reach_Out_To_Professional_Mentor:false, Attend_Networking_Event:false},
             Career_Readiness:{Attend_A_Professional_Or_Tech_Conference:false, Applied_For_A_Job:false},
@@ -303,7 +303,7 @@ passportRouter.get("/getAllLearners", async (req, res) => {
     try {
         let learners = await passportModel.find()
 
-        console.log(learners)
+       
 
         res.status(201).json({learners:learners})
     }

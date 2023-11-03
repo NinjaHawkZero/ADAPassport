@@ -20,13 +20,14 @@ function getFormattedDate() {
 }
 
 
+//NOTE: Assign userID when mentor and learner accounts are made
 
 
-passportRouter.delete("/delete", async (req, res) => {
+passportRouter.delete("/delete/:email", async (req, res) => {
     try {
 
-        
-        let deletedLearner = await passportModel.findOneAndDelete({email: "marcus.westbrooks@gmail.com"})
+        let email = req.params.email
+        let deletedLearner = await passportModel.findOneAndDelete({email: email})
 
         res.status(201).json({deletedLearner})
     }
@@ -48,14 +49,16 @@ passportRouter.post("/signInWithApple/mentor", async (req, res) => {
     
         let userID = req.body.user
     
-        if(userID.length === 0) {
+        if(userID.length === 0  || userID === undefined || userID === "") {
             throw new Error('UserID empty')
         }
     
+        else {
         let foundUser = await mentorModel.find({userID: userID})
         let mentor = foundUser[0]
     
         res.status(201).json({mentor: mentor})
+        }
     
     }
     
@@ -76,9 +79,10 @@ try {
 
     let email = req.body.email
     let name = req.body.name
+    let userID = req.body.user
 
     //Try find user in DB
-    let foundLearner = await mentorModel.find({email: email});
+    let foundLearner = await mentorModel.find({userID: userID});
 
     //If user found return user
     if(foundLearner.length > 0) {
@@ -88,7 +92,7 @@ try {
         res.status(201).json({mentor: mentor});
     }
      else {
-        let mentor = await mentorModel.create({email:email, name: name})
+        let mentor = await mentorModel.create({email:email, name: name, userID: userID})
 
         res.status(201).json({mentor: mentor})
      }
@@ -114,14 +118,16 @@ passportRouter.post("/signInWithApple", async (req, res) => {
     
         let userID = req.body.user
     
-        if(userID.length === 0) {
+        if(userID.length === 0  || userID === undefined || userID === "") {
             throw new Error('UserID empty')
         }
-    
+
+        else {
         let foundUser = await passportModel.find({userID: userID})
         let learner = foundUser[0]
     
         res.status(201).json({learner: learner})
+    }
     
     }
     
@@ -142,13 +148,14 @@ passportRouter.post("/createPassport", async (req, res) => {
         //Extract Data
         let learnerEmail = req.body.email;
         let learnerName = req.body.name;
+        let userID = req.body.user
         
         
        
 
 
         //Try find user in DB
-        let foundLearner = await passportModel.find({email: learnerEmail});
+        let foundLearner = await passportModel.find({userID: userID});
       
 
 

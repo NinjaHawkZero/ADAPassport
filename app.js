@@ -15,7 +15,7 @@ let { emailModel } = require("./emailModel")
 
 
 
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 
 const db = mongoose.connection
 

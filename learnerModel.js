@@ -5,8 +5,9 @@ const passportSchema = new mongoose.Schema({
 
     email:String,
     name:String,
-    cohort: String,
+    mentorID:{type: mongoose.Schema.Types.ObjectId, ref:'Mentor'},
     userID: String,
+    deviceToken: String,
     badges:[{achievement: String, description: String, didComplete: Boolean, learnerName: String, date: String, isLocked: Boolean}],
     Professional_Toolkit:{Updated_Resume:Boolean, Gave_Resume_Feedback:Boolean, Write_Or_Update_Cover_Letter:Boolean, Create_Business_Card:Boolean, Took_Professional_Headshot: Boolean, Create_Or_Update_LinkedIn:Boolean},
     Portfolio:{Built_Or_Updated_Portfolio: Boolean, Added_Challenges_To_Portfolio: Boolean },

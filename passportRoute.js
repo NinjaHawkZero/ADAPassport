@@ -173,7 +173,7 @@ passportRouter.post('/addLearner', async (req, res) => {
         
 
 
-        res.status(201).json({message:"Added Mentee!"  })
+        res.status(201).json({message:"Added Mentee!"})
     
         }
     }
@@ -261,24 +261,7 @@ passportRouter.post('/notifyMentor', async (req, res) => {
         let deviceToken = mentor.deviceToken
 
 
-        // const key = fs.readFileSync(__dirname + "/apn.p8", 'utf8')
-
-        // const token = jwt.sign(
-        //     {
-        //         iss:"SHRRQ2Y96G",//teamID of your developer account
-        //         iat: Math.floor(Date.now() / 1000) //Replace with current unix epoch time [Not in milliseconds]
-
-        //     }, 
-        //     key,
-        //     {
-        //         header: {
-        //             alg: "ES256",
-        //             kid: "492U6DK522", // issuer key which is "key ID" of your p8 file
-        //         }
-        //     },
-        //     {keyId:"492U6DK522"}
-
-        // );
+      
 
         let newOptions = {
             token: {
@@ -308,10 +291,10 @@ passportRouter.post('/notifyMentor', async (req, res) => {
 
         apnProvider.send(note, deviceToken).then((result) => {
             if(result.failed && result.failed.length > 0) {
-                console.log(`Error sending push notification: ${result.sent[0].device}`);
+             
                 res.status(500).json({message: "Error sending the notification, but got the device"})
             } else if (result.sent && result.sent.length > 0) {
-                console.log(`Push Notification sent to device: ${result.sent[0].device}`);
+                
                 res.status(200).json({message:"Notification sent successfully"})
             } else {
                 console.log(`Unknown error while sending push notification`);
